@@ -18,7 +18,7 @@ pub mod depin_vault {
         ctx.accounts.transfer_to_vault(10000000)
     }
 
-    pub fn set_temp(ctx: Context<SetTemp>, value: u8) -> Result<()> {
+    pub fn set_temp(ctx: Context<SetTemp>, value: u32) -> Result<()> {
         ctx.accounts.set_temp(value)
     }
 }

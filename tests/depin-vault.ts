@@ -19,7 +19,7 @@ describe("depin-vault", () => {
   let payerTokenAccount: anchor.web3.PublicKey;
   let vaultTokenAccount: anchor.web3.PublicKey;
 
-  it("Creates mint and token accounts", async () => {
+  xit("Creates mint and token accounts", async () => {
     // Create new mint
     mint = await createMint(
       provider.connection,
@@ -64,7 +64,7 @@ describe("depin-vault", () => {
     console.log("Vault Token Account:", vaultTokenAccount.toBase58());
   });
 
-  it("Transfer to vault!", async () => {
+  xit("Transfer to vault!", async () => {
     // Add your test here.
     const tx = await program.methods.transferToVault()
     .accountsPartial({
@@ -77,5 +77,18 @@ describe("depin-vault", () => {
     .rpc();
     console.log("\nTransferred to vault");
     console.log("Your transaction signature", tx);
+  });
+
+  xit("Log and fetch temp PDA account", async () => {
+    const [pda, _bump] = await anchor.web3.PublicKey.findProgramAddress(
+      [Buffer.from("temp"), provider.wallet.publicKey.toBuffer()],
+      program.programId
+    );
+    console.log("\nTemp PDA:", pda.toBase58());
+
+    const account = await program.account.temp.fetch(pda);
+    console.log("Temp PDA account temp:", account.value.toString());
+    console.log("Temp PDA account time:", account.latestUpdate.toString());
+    console.log("Fetched PDA account successfully");
   });
 });

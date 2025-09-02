@@ -9,7 +9,7 @@ pub struct SetTemp<'info> {
     #[account(
         init_if_needed,
         payer = user,
-        space = Temp::INIT_SPACE,
+        space = 8 + Temp::INIT_SPACE,
         seeds = [b"temp", user.key().as_ref()],
         bump,
     )]
@@ -18,7 +18,7 @@ pub struct SetTemp<'info> {
 }
 
 impl<'info> SetTemp<'info> {
-    pub fn set_temp(&mut self, value: u8) -> Result<()> {
+    pub fn set_temp(&mut self, value: u32) -> Result<()> {
         let temp = &mut self.temp;
         temp.value = value;
         temp.latest_update = Clock::get()?.unix_timestamp;
