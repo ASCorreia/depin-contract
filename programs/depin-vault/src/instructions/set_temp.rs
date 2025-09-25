@@ -22,6 +22,12 @@ impl<'info> SetTemp<'info> {
         let temp = &mut self.temp;
         temp.value = value;
         temp.latest_update = Clock::get()?.unix_timestamp;
+
+        emit!(crate::events::TempSetEvent {
+            old_value: temp.value,
+            new_value: value,
+        });
+        
         Ok(())
     }
 }

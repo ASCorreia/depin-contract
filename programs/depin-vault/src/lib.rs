@@ -5,6 +5,7 @@ use anchor_lang::prelude::*;
 
 mod state;
 mod instructions;
+mod events;
 
 use instructions::*;
 
