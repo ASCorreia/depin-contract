@@ -1,13 +1,11 @@
 use anchor_lang::prelude::*;
 use anchor_spl::token_interface::{
-    transfer_checked, 
     Mint, 
+    transfer_checked, 
     TokenAccount, 
     TokenInterface, 
-    TransferChecked
+    TransferChecked,
 };
-
-use crate::events;
 
 #[derive(Accounts)]
 pub struct TransferToVault<'info> {
@@ -39,7 +37,7 @@ impl<'info> TransferToVault<'info> {
 
         transfer_checked(cpi_ctx, amount, self.mint.decimals)?;
 
-        emit!(events::TransferEvent {
+        emit!(crate::events::TransferEvent {
             amount,
             vault_balance: self.vault_ata.amount,
         });
